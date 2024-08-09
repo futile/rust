@@ -242,7 +242,7 @@ impl<'tcx> CheckAttrVisitor<'tcx> {
                     if !attrs.iter().any(|a| a.has_name(sym::proc_macro_derive)) {
                         // TODO: Create proper, translatable error type for this
                         // TODO: Create a test for this
-                        self.dcx().span_bug(attr.span, "#[proc_macro_cacheable] must be used together with #[proc_macro_derive]");
+                        self.dcx().span_bug(attr.span, "`#[proc_macro_cacheable]` must be used together with `#[proc_macro_derive]`");
                     }
                 }
                 [sym::proc_macro_derive, ..] => {
