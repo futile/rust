@@ -1,0 +1,12 @@
+error[E0658]: the `#[proc_macro_cacheable]` attribute is an experimental feature
+  --> $DIR/feature-gate-proc-macro-cacheable.rs:13:1
+   |
+LL | #[proc_macro_cacheable]
+   | ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: add `#![feature(proc_macro_cacheable)]` to the crate attributes to enable
+   = note: this compiler was built on YYYY-MM-DD; consider upgrading it if it is out of date
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0658`.

@@ -236,6 +236,14 @@ impl<'tcx> CheckAttrVisitor<'tcx> {
                 [sym::proc_macro_attribute, ..] => {
                     self.check_proc_macro(hir_id, target, ProcMacroKind::Attribute);
                 }
+                [sym::proc_macro_cacheable, ..] => {
+                    self.check_generic_attr(hir_id, attr, target, Target::Fn);
+                    self.check_proc_macro(hir_id, target, ProcMacroKind::Derive);
+                    if !attrs.iter().any(|a| a.has_name(sym::proc_macro_derive)) {
+                        // TODO: Create proper, translatable error type for this
+                        self.dcx().span_bug(attr.span, "#[proc_macro_cacheable] must be used together with #[proc_macro_derive]");
+                    }
+                }
                 [sym::proc_macro_derive, ..] => {
                     self.check_generic_attr(hir_id, attr, target, Target::Fn);
                     self.check_proc_macro(hir_id, target, ProcMacroKind::Derive)
