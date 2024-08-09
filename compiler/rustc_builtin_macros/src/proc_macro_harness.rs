@@ -24,6 +24,9 @@ struct ProcMacroDerive {
     function_name: Ident,
     span: Span,
     attrs: Vec<Symbol>,
+    // TODO: actually implement relevant logic (somwhere :shrug:)
+    #[expect(dead_code, reason = "not yet implemented")]
+    is_cacheable: bool,
 }
 
 struct ProcMacroDef {
@@ -100,6 +103,11 @@ impl<'a> CollectProcMacros<'a> {
             return;
         };
 
+        let is_cacheable = item.attrs.iter().any(|a| a.has_name(sym::proc_macro_cacheable));
+
+        // TODO: keep this?
+        tracing::debug!(?trait_name, ?proc_attrs, ?is_cacheable);
+
         if self.in_root && item.vis.kind.is_pub() {
             self.macros.push(ProcMacro::Derive(ProcMacroDerive {
                 id: item.id,
@@ -107,6 +115,7 @@ impl<'a> CollectProcMacros<'a> {
                 trait_name,
                 function_name: item.ident,
                 attrs: proc_attrs,
+                is_cacheable,
             }));
         } else {
             let msg = if !self.in_root {
