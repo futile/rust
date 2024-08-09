@@ -357,6 +357,9 @@ pub const BUILTIN_ATTRIBUTES: &[BuiltinAttribute] = &[
         proc_macro_derive, Normal, template!(List: "TraitName, /*opt*/ attributes(name1, name2, ...)"),
         ErrorFollowing, EncodeCrossCrate::No,
     ),
+    gated!(
+        proc_macro_cacheable, Normal, template!(Word), WarnFollowing, EncodeCrossCrate::No, experimental!(proc_macro_cacheable)
+    ),
     ungated!(proc_macro_attribute, Normal, template!(Word), ErrorFollowing, EncodeCrossCrate::No),
 
     // Lints:

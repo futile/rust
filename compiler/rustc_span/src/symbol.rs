@@ -1447,6 +1447,7 @@ symbols! {
         proc_dash_macro: "proc-macro",
         proc_macro,
         proc_macro_attribute,
+        proc_macro_cacheable,
         proc_macro_derive,
         proc_macro_expr,
         proc_macro_gen,

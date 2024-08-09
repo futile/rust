@@ -1,6 +1,8 @@
 //@ force-host
 //@ no-prefer-dynamic
 
+#![feature(proc_macro_cacheable)]
+
 #![crate_type = "proc-macro"]
 
 extern crate proc_macro;
