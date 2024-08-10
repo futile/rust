@@ -1,5 +1,8 @@
 //@ force-host
 //@ no-prefer-dynamic
+//@ rustc-env:RUSTC_LOG=rustc_expand::base,rustc_builtin_macros::proc_macro_harness
+
+// TODO: ^ remove rustc-env (used this for testing only)
 
 #![feature(proc_macro_cacheable)]
 
