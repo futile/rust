@@ -14,6 +14,7 @@ use std::sync::Arc;
 use rustc_arena::TypedArena;
 use rustc_ast::expand::allocator::AllocatorKind;
 use rustc_ast::expand::StrippedCfgItem;
+use rustc_ast::tokenstream::TokenStream;
 use rustc_data_structures::fingerprint::Fingerprint;
 use rustc_data_structures::fx::{FxIndexMap, FxIndexSet};
 use rustc_data_structures::steal::Steal;
@@ -39,7 +40,7 @@ use rustc_session::lint::LintExpectationId;
 use rustc_session::Limits;
 use rustc_span::def_id::LOCAL_CRATE;
 use rustc_span::symbol::Symbol;
-use rustc_span::{Span, DUMMY_SP};
+use rustc_span::{LocalExpnId, Span, DUMMY_SP};
 use rustc_target::abi;
 use rustc_target::spec::PanicStrategy;
 use {rustc_ast as ast, rustc_attr as attr, rustc_hir as hir};
@@ -103,6 +104,12 @@ pub use plumbing::{IntoQueryParam, TyCtxtAt, TyCtxtEnsure, TyCtxtEnsureWithValue
 // Queries marked with `fatal_cycle` do not need the latter implementation,
 // as they will raise an fatal error on query cycles instead.
 rustc_queries! {
+    query derive_macro_expansion(key: (LocalExpnId, &'tcx TokenStream)) -> Result<&'tcx TokenStream, ()> {
+        eval_always
+        no_hash
+        desc { "expanding a derive (proc) macro" }
+    }
+
     /// This exists purely for testing the interactions between delayed bugs and incremental.
     query trigger_delayed_bug(key: DefId) {
         desc { "triggering a delayed bug for testing incremental" }
