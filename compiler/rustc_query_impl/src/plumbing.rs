@@ -711,7 +711,7 @@ macro_rules! define_queries {
                 // don't `unwrap()` here, just manually check for `None` and do best-effort error
                 // reporting.
                 if res.is_none() {
-                    // TODO: something else than just `eprintln!`?
+                    // TODO(pr-time): something else than just `eprintln!`?
                     eprintln!("Failed to collect active jobs for query with name `{}`!", stringify!($name));
                 }
             }
