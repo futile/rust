@@ -1,6 +1,7 @@
 //! Defines the set of legal keys that can be used in queries.
 
 use rustc_ast::tokenstream::TokenStream;
+use rustc_data_structures::svh::Svh;
 use rustc_hir::def_id::{CrateNum, DefId, LocalDefId, LocalModDefId, ModDefId, LOCAL_CRATE};
 use rustc_hir::hir_id::{HirId, OwnerId};
 use rustc_query_system::query::{DefIdCache, DefaultCache, SingleCache, VecCache};
@@ -576,7 +577,7 @@ impl Key for (LocalDefId, HirId) {
     }
 }
 
-impl<'tcx> Key for (LocalExpnId, &'tcx TokenStream) {
+impl<'tcx> Key for (LocalExpnId, Svh, &'tcx TokenStream) {
     type Cache<V> = DefaultCache<Self, V>;
 
     fn default_span(&self, _tcx: TyCtxt<'_>) -> Span {
